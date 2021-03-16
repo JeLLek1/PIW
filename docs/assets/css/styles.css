@@ -1,0 +1,547 @@
+/**
+ *  Deklaracja czcionek
+ */
+@font-face {
+  font-family: 'Roboto';
+  src: url(../fonts/Roboto-Bold.eot);
+  src: url(../fonts/Roboto-Bold.eot?#iefix) format('embedded-opentype'), url(../fonts/Roboto-Bold.otf) format('otf'),
+    url(../fonts/Roboto-Bold.svg#Roboto-Bold) format('svg'), url(../fonts/Roboto-Bold.ttf) format('truetype'),
+    url(../fonts/Roboto-Bold.woff) format('woff'), url(../fonts/Roboto-Bold.woff2) format('woff2');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url(../fonts/Roboto-Regular.eot);
+  src: url(../fonts/Roboto-Regular.eot?#iefix) format('embedded-opentype'),
+    url(../fonts/Roboto-Regular.otf) format('otf'), url(../fonts/Roboto-Regular.svg#Roboto-Regular) format('svg'),
+    url(../fonts/Roboto-Regular.ttf) format('truetype'), url(../fonts/Roboto-Regular.woff) format('woff'),
+    url(../fonts/Roboto-Regular.woff2) format('woff2');
+  font-weight: 400;
+}
+
+/**
+ *  Ustawienia domyślne
+ */
+:root {
+  --global-font-size: 16px;
+  --background-main: #192a56;
+  --background-second: #227093;
+  --background-schedulde-main: #dfe6e9;
+  --background-schedulde-second: #b2bec3;
+  --background-schedulde-lecture: #55efc4;
+  --background-schedulde-lab: #81ecec;
+  --background-schedulde-project: #ffeaa7;
+  --color-main: #ff793f;
+  --font-color-main: #d1ccc0;
+  --font-color-second: #f7f1e3;
+  --font-color-schedulde-main: #2d3436;
+}
+
+html {
+  color: var(--font-color-main);
+  font-family: 'Roboto', sans-serif;
+  font-size: var(--global-font-size);
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-main);
+  min-width: 320px;
+  padding-top: 3.2rem;
+  padding-bottom: 3.2rem;
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 80rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 0 0 1rem 0;
+  display: inline-block;
+  position: relative;
+  padding-right: 1.2rem;
+}
+
+h1::after {
+  content: '';
+  background-color: var(--color-main);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.2rem;
+  border-radius: 2rem;
+}
+
+h1::before {
+  content: '';
+  background-color: var(--color-main);
+  position: absolute;
+  left: -0.4rem;
+  bottom: -0.4rem;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+section {
+  padding: 3rem 0;
+  position: relative;
+}
+
+p {
+  margin: 1rem 0;
+}
+/**
+ *  Header
+ */
+#header {
+  position: fixed;
+  background-color: var(--background-second);
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  -webkit-box-shadow: 0 0 1rem 0 #000000;
+  box-shadow: 0 0 1rem 0 #000000;
+  z-index: 999;
+}
+.header__nav-list {
+  list-style: none;
+  margin: 0;
+  font-size: 0rem;
+}
+.header__nav-el {
+  display: inline-block;
+  vertical-align: middle;
+}
+.header__nav-url {
+  color: var(--font-color-second);
+  display: block;
+  padding: 1rem 1.5rem;
+  transition: color 0.3s;
+  position: relative;
+  font-size: 1rem;
+}
+.header__nav-url::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 0;
+  height: 0.3rem;
+  width: 0%;
+  background-color: var(--color-main);
+  -webkit-box-shadow: 0rem 0.2rem 0.4rem 0rem var(--color-main);
+  box-shadow: 0rem 0.2rem 0.4rem 0rem var(--color-main);
+  transition: width 0.3s;
+}
+.header__nav-url:hover,
+.header__nav-el.active .header__nav-url {
+  color: var(--color-main);
+}
+.header__nav-url:hover::after,
+.header__nav-el.active .header__nav-url::after {
+  width: calc(100% - 1.5rem);
+}
+
+#footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  color: var(--background-second);
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}
+/**
+ *  About
+ */
+#about {
+  text-align: justify;
+}
+.about__img {
+  border: 0.2rem solid var(--color-main);
+  float: left;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  max-width: 40rem;
+}
+
+.about__img--circle-main {
+  width: 18rem;
+  height: 18rem;
+  background-image: url(../img/profile2.png);
+  background-color: var(--background-second);
+  background-size: contain;
+  image-rendering: pixelated;
+  position: relative;
+  border-radius: 50%;
+  -webkit-animation: profile_img 5s infinite;
+  -moz-animation: profile_img 5s infinite;
+  -o-animation: profile_img 5s infinite;
+  animation: profile_img 5s infinite;
+}
+
+.about__img-circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  -webkit-animation: profile_img_dot 5s linear infinite;
+  -moz-animation: profile_img_dot 5s linear infinite;
+  -o-animation: profile_img_dot 5s linear infinite;
+  animation: profile_img_dot 5s linear infinite;
+}
+
+.about__img-circle::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 0.6rem);
+  right: -0.6rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: var(--color-main);
+}
+/**
+ * Plan zajęć
+ */
+#schedule:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url('../img/pexels-francesco-ungaro-998641.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  opacity: 0.5;
+  z-index: -1;
+}
+.schedulde__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 2rem;
+}
+.schedulde__day {
+  width: calc(20% - 1rem);
+  background-color: var(--background-schedulde-main);
+  color: var(--font-color-schedulde-main);
+  border-radius: 1rem;
+}
+.schedulde__header {
+  background-color: var(--background-schedulde-second);
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+}
+.schedulde__body ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.schedulde__lesson {
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transform-origin: center;
+  border: 0.2rem solid var(--background-schedulde-main);
+  -webkit-box-shadow: 0 0 0 0 #000000;
+  box-shadow: 0 0 0 0 #000000;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.schedulde__lesson:hover {
+  transform: scale(1.2);
+  z-index: 20;
+  -webkit-box-shadow: 0 0.5rem 0.8rem 0 #000000;
+  box-shadow: 0 0.5rem 0.8rem 0 #000000;
+}
+.schedulde__lesson--lecture {
+  background-color: var(--background-schedulde-lecture);
+}
+.schedulde__lesson--lab {
+  background-color: var(--background-schedulde-lab);
+}
+.schedulde__lesson--project {
+  background-color: var(--background-schedulde-project);
+}
+/**
+ *   Portfolio
+ */
+.portfolio__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 2rem;
+}
+
+.portfolio__single {
+  width: calc(50% - 1rem);
+  position: relative;
+  overflow: hidden;
+}
+.portfolio__single img {
+  display: block;
+}
+.portfolio__url {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.portfolio__effect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.portfolio_tile {
+  position: absolute;
+  background-color: #000000;
+  opacity: 0;
+  width: 20%;
+  height: 33.333%;
+}
+
+.portfolio__single:hover .portfolio_tile {
+  opacity: 0.7;
+}
+.portfolio_title {
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.portfolio_title::after {
+  content: '';
+  background-color: var(--color-main);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.2rem;
+  border-radius: 2rem;
+}
+
+.portfolio_title::before {
+  content: '';
+  background-color: var(--color-main);
+  position: absolute;
+  left: calc(100% + 0.4rem);
+  bottom: -0.4rem;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  transition: left 0.5s;
+}
+.portfolio__single:hover .portfolio_title {
+  opacity: 1;
+}
+.portfolio__single:hover .portfolio_title::before {
+  left: -0.4rem;
+}
+.portfolio_tile--1x1 {
+  left: 0;
+  top: 0%;
+  transition: opacity 0.4s;
+}
+.portfolio_tile--1x2 {
+  left: 20%;
+  top: 0%;
+  transition: opacity 0.2s;
+}
+.portfolio_tile--1x3 {
+  left: 40%;
+  top: 0%;
+  transition: opacity 0.5s;
+}
+.portfolio_tile--1x4 {
+  left: 60%;
+  top: 0%;
+  transition: opacity 0.4s;
+}
+.portfolio_tile--1x5 {
+  left: 80%;
+  top: 0%;
+  transition: opacity 0.2s;
+}
+.portfolio_tile--2x1 {
+  left: 0;
+  top: 33.333%;
+  transition: opacity 0.4s;
+}
+.portfolio_tile--2x2 {
+  left: 20%;
+  top: 33.333%;
+  transition: opacity 0.2s;
+}
+.portfolio_tile--2x3 {
+  left: 40%;
+  top: 33.333%;
+  transition: opacity 0.3s;
+}
+.portfolio_tile--2x4 {
+  left: 60%;
+  top: 33.333%;
+  transition: opacity 0.1s;
+}
+.portfolio_tile--2x5 {
+  left: 80%;
+  top: 33.333%;
+  transition: opacity 0.2s;
+}
+.portfolio_tile--3x1 {
+  left: 0;
+  top: 66.666%;
+  transition: opacity 0.3s;
+}
+.portfolio_tile--3x2 {
+  left: 20%;
+  top: 66.666%;
+  transition: opacity 0.1s;
+}
+.portfolio_tile--3x3 {
+  left: 40%;
+  top: 66.666%;
+  transition: opacity 0.6s;
+}
+.portfolio_tile--3x4 {
+  left: 60%;
+  top: 66.666%;
+  transition: opacity 0.3s;
+}
+.portfolio_tile--3x5 {
+  left: 80%;
+  top: 66.666%;
+  transition: opacity 0.2s;
+}
+/**
+ *  Animations
+ */
+@-webkit-keyframes profile_img {
+  0% {
+    background-image: url(../img/profile2.png);
+  }
+  10% {
+    background-image: url(../img/profile1.png);
+  }
+  90% {
+    background-image: url(../img/profile1.png);
+  }
+  99% {
+    background-image: url(../img/profile2.png);
+  }
+}
+@-moz-keyframes profile_img {
+  0% {
+    background-image: url(../img/profile2.png);
+  }
+  10% {
+    background-image: url(../img/profile1.png);
+  }
+  90% {
+    background-image: url(../img/profile1.png);
+  }
+  99% {
+    background-image: url(../img/profile2.png);
+  }
+}
+@-o-keyframes profile_img {
+  0% {
+    background-image: url(../img/profile2.png);
+  }
+  10% {
+    background-image: url(../img/profile1.png);
+  }
+  90% {
+    background-image: url(../img/profile1.png);
+  }
+  99% {
+    background-image: url(../img/profile2.png);
+  }
+}
+@keyframes profile_img {
+  0% {
+    background-image: url(../img/profile2.png);
+  }
+  10% {
+    background-image: url(../img/profile1.png);
+  }
+  90% {
+    background-image: url(../img/profile1.png);
+  }
+  99% {
+    background-image: url(../img/profile2.png);
+  }
+}
+@-webkit-keyframes profile_img_dot {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes profile_img_dot {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes profile_img_dot {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes profile_img_dot {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
