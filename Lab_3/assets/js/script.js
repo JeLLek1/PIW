@@ -101,7 +101,7 @@ class ToDoLists {
       input.classList.add('is-invalid');
     } else {
       input.classList.remove('is-invalid');
-      this.addList(input.value);
+      this.addList(escapeHtml(input.value));
       this.render();
     }
   }
