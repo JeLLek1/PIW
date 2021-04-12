@@ -112,9 +112,9 @@ class ToDoLists {
       : this.lists[index].search.toLowerCase();
 
     document.querySelectorAll(`.list__item--${index}`).forEach(el => {
-      const content = caseSensitive
-        ? el.dataset.content
-        : el.dataset.content.toLowerCase();
+      const content = escapeHtml(
+        caseSensitive ? el.dataset.content : el.dataset.content.toLowerCase(),
+      );
       if (!caseSensitive) content.toLowerCase();
       if (content.indexOf(searchString) !== 0) {
         el.classList.add('hide');
