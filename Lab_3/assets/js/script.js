@@ -231,7 +231,7 @@ class ToDoLists {
       target = e.target;
     } else if (
       !e.target.classList.contains('list__item-detele') &&
-      e.target.parentNode.classList.contains('list__item')
+      e.target.parentNode.classList?.contains('list__item')
     ) {
       target = e.target.parentNode;
     } else {
