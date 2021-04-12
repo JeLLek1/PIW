@@ -1,0 +1,175 @@
+/**
+ *  Ustawienia domyślne
+ */
+:root {
+  --background-main: #f8f9fa;
+  --font-color-main: #151515;
+  --font-color-gray: #ababab;
+  --global-font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: var(--global-font-size);
+  color: var(--font-color-main);
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-main);
+  min-width: 320px;
+  padding-bottom: 3.2rem;
+  min-height: 100vh;
+  position: relative;
+}
+
+#footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  color: var(--font-color-gray);
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}
+
+h4 {
+  font-weight: 700;
+}
+
+.btn-add {
+  background: transparent
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3e%3cpath d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/%3e%3c/svg%3e")
+    center/1.7em auto no-repeat;
+  width: 10rem;
+  height: 10rem;
+}
+
+.btn-absolute {
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.modal {
+  background-color: #00000073;
+}
+
+.card-header {
+  cursor: pointer;
+}
+
+/**
+ *   Formularze
+ */
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+/**
+ *   Sekcje
+ */
+section {
+  padding: 2rem 0;
+}
+
+/**
+ *  Lista
+ */
+.list__container {
+  display: flex;
+  width: fit-content;
+  padding: 1rem 0;
+}
+
+.list__element {
+  padding: 0 1rem;
+  width: 20rem;
+}
+
+.list__element {
+  overflow: hidden;
+  transition: max-height 0.3s;
+}
+
+.list__element.hide {
+  max-height: 3.1rem;
+}
+
+.list__scroll {
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+.list__scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+
+.list__scroll::-webkit-scrollbar {
+  height: 10px;
+  background-color: #f5f5f5;
+}
+
+.list__scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--bs-blue);
+}
+
+.list__item {
+  position: relative;
+  padding-right: 2.5rem;
+  transition: padding-bottom 0.5s;
+}
+.list__item--closed {
+  padding-bottom: 1.7rem;
+}
+.list__item--closed div {
+  text-decoration: line-through;
+  color: var(--font-color-gray);
+}
+
+.list__item-date {
+  font-size: 0.7rem;
+  border: 1px solid #007700;
+  background-color: #d7ffd7;
+  display: inline-block;
+  border-radius: 10px;
+  padding: 0.2rem;
+  height: 0rem;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  position: absolute;
+  left: 1rem;
+  bottom: 0.4rem;
+  transition: opacity 0.2s, visibility 0.2s, height 0.2s;
+}
+.list__item--closed .list__item-date {
+  height: 1.5rem;
+  opacity: 1;
+  visibility: visible;
+}
+
+.card-header {
+  position: relative;
+  padding-right: 2.5rem;
+}
+
+.list__item.hide {
+  display: none;
+}
+
+.list__empty {
+  color: var(--font-color-gray);
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lista ToDo</title>
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/img/favicon.ico"
+    />
+    <meta
+      name="description"
+      content="Strona na trzecie labolatoria z kursu Programowania Interfejsów Webowych"
+    />
+    <meta name="author" content="Maciej Bronikowski 248838" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link href="assets/css/plugins/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/fonts.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main id="main">
+      <section class="form">
+        <div class="container">
+          <div class="row">
+            <h4 class="mb-3">Dodaj element do listy</h4>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="input-item" class="form-label">Nowa pozycja:</label>
+                <input
+                  type="text"
+                  name="item"
+                  id="input-item"
+                  class="form-control"
+                />
+                <div class="invalid-feedback">Wprowadź wartość</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="select-input-list" class="form-label"
+                  >Wybierz listę:</label
+                >
+                <select id="select-input-list" class="form-select"></select>
+                <div class="invalid-feedback">Wybierz listę</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <button class="w-100 btn btn-primary" id="button-add-item">
+                Dodaj pozycję
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="list">
+        <div class="container">
+          <h4 class="mb-3">Listy ToDo</h4>
+          <div class="list__scroll">
+            <div class="list__container" id="lists"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer id="footer">
+      <div class="container">Maciej Bronikowski 248838 © 2021</div>
+    </footer>
+    <div class="modal" id="modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="modal-cancel">
+              Przerwij
+            </button>
+            <button type="button" class="btn btn-danger" id="modal-accept">
+              Usuń
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/template" data-name="lists-list">
+      <div class="list__element {$class}" id="list-element-{$ID}" data-element={$ID}>
+        <div class="card">
+          <div class="card-header card-header--hide">
+            <h5>{$title}</h5></h4><button type="button" class="list__element-detele btn-close btn-absolute" data-delete={$ID}></button>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              {$content}
+            </ul>
+          </div>
+          <div class="card-footer">
+            <div class="input-group mb-2">
+              <span class="input-group-text" style="width: 2.5rem"><img src="assets/img/magnifying-glass.svg" alt="search" /></span>
+              <input type="text" class="form-control form-control-sm list__search" data-element="{$ID}" placeholder="Szukaj" value="{$search}"/>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input list__case-sensitive-input" type="checkbox" id="case-sensitive-{$ID}" data-element="{$ID}" value="xdd" {$caseAttr}/>
+              <label class="form-check-label" for="case-sensitive-{$ID}">Sprawdzaj wielkość liter</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script type="text/template" data-name="lists-item">
+      <li class="list-group-item list__item list__item--{$parentID} {$class}" data-content="{$content}" data-item="{$parentID}/{$ID}" id="list-item-{$parentID}/{$ID}">
+          <div>{$content}</div><button type="button" class="list__item-detele btn-close btn-absolute" data-delete={$parentID}/{$ID}></button>
+          <span class="list__item-date">{$closeDate}</span>
+      </li>
+    </script>
+    <script type="text/template" data-name="list-add">
+      <div class="list__element">
+        <div class="card">
+          <div class="card-header">
+            <input type="text" class="form-control form-control-sm" placeholder="Dodaj listę" id="list__add-list-input"/>
+            <div class="invalid-feedback">Wprowadź wartość</div>
+            <button type="button" class="btn btn-close btn-add btn-absolute" id="list__add-list-btn"></button>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script src="assets/js/plugins/jquery.min.js"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
