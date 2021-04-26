@@ -38,7 +38,7 @@ const Main = () => {
               {Object.keys(accountsFiltered).map(key => (
                 <Account key={key} {...accountsFiltered[key]}></Account>
               ))}
-              {Object.keys(accountsFiltered).length !== 0 || (
+              {Object.keys(accountsFiltered).length === 0 && (
                 <Typography>Nie znaleziono wyników</Typography>
               )}
             </Grid>
