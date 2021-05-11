@@ -10,24 +10,26 @@ const useStorage = name => {
     window.webkitIndexedDB ||
     window.msIndexedDB;
 
-  const createDb = useCallback(
-    db => {
-      const objectStore = db.createObjectStore(`${dbPrefix}-${name}`, {
+  const createDb = useCallback(event => {
+    const db = event.target.result;
+
+    Object.keys(accounts).forEach(dbName => {
+      db.createObjectStore(`${dbPrefix}-${dbName}`, {
         keyPath: 'id',
         autoIncrement: true,
       });
-      objectStore.transaction.oncomplete = event => {
-        if (!accounts[name]) return;
+    });
+    event.target.transaction.oncomplete = event => {
+      Object.keys(accounts).forEach(dbName => {
         const objectStore = db
-          .transaction(`${dbPrefix}-${name}`, 'readwrite')
-          .objectStore(`${dbPrefix}-${name}`);
-        accounts[name].forEach(account => {
+          .transaction(`${dbPrefix}-${dbName}`, 'readwrite')
+          .objectStore(`${dbPrefix}-${dbName}`);
+        accounts[dbName].forEach(account => {
           objectStore.add(account);
         });
-      };
-    },
-    [name],
-  );
+      });
+    };
+  }, []);
 
   const loadAll = useCallback(() => {
     return new Promise((resolve, reject) => {
@@ -37,12 +39,12 @@ const useStorage = name => {
             'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
           ),
         );
-      const request = storage.open(`${dbPrefix}-${name}`, 1);
+      const request = storage.open(`${dbPrefix}-data`, 1);
       request.onerror = event => {
         reject(Error('Błąd podczas otwierania indexed DB'));
       };
       request.onupgradeneeded = event => {
-        createDb(event.target.result);
+        createDb(event);
       };
       request.onsuccess = event => {
         const allRequest = event.target.result
@@ -68,12 +70,12 @@ const useStorage = name => {
               'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
             ),
           );
-        const request = storage.open(`${dbPrefix}-${name}`, 1);
+        const request = storage.open(`${dbPrefix}-data`, 1);
         request.onerror = event => {
           reject(Error('Błąd podczas otwierania indexed DB'));
         };
         request.onupgradeneeded = event => {
-          createDb(event.target.rejesult);
+          createDb(event);
         };
         request.onsuccess = event => {
           console.log('test');
@@ -102,12 +104,12 @@ const useStorage = name => {
               'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
             ),
           );
-        const request = storage.open(`${dbPrefix}-${name}`, 1);
+        const request = storage.open(`${dbPrefix}-data`, 1);
         request.onerror = event => {
           reject(Error('Błąd podczas otwierania indexed DB'));
         };
         request.onupgradeneeded = event => {
-          createDb(event.target.rejesult);
+          createDb(event);
         };
         request.onsuccess = event => {
           const addRequest = event.target.result
@@ -135,12 +137,12 @@ const useStorage = name => {
               'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
             ),
           );
-        const request = storage.open(`${dbPrefix}-${name}`, 1);
+        const request = storage.open(`${dbPrefix}-data`, 1);
         request.onerror = event => {
           reject(Error('Błąd podczas otwierania indexed DB'));
         };
         request.onupgradeneeded = event => {
-          createDb(event.target.rejesult);
+          createDb(event);
         };
         request.onsuccess = event => {
           const objectStore = event.target.result
