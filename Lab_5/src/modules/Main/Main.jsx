@@ -63,7 +63,7 @@ const Main = () => {
               <Grid container className={classes.containerSpaced}>
                 <Grid item xs={12}>
                   <Title variant="h3" component="h2">
-                    Studenci
+                    {tab.name}
                   </Title>
                   {Object.keys(tab.props.dataFiltered).map(key => (
                     <Account
