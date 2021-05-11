@@ -53,7 +53,7 @@ const Main = () => {
                   <FilterForm
                     options={tab.props.filterOptions}
                     changeOptions={tab.props.changeFilterOptions}
-                    label={{ name: 'Imię' }}
+                    label={{ name: tab.nameLabel }}
                   />
                 </Grid>
                 <Grid item sm={3} xs={12}>

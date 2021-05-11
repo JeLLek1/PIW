@@ -14,6 +14,7 @@ import {
 import { AddForm } from 'components/Forms';
 import useStorage from 'utils/useStorage';
 import randomHash from 'utils/randomHash';
+import { Link } from 'react-router-dom';
 
 const Add = () => {
   const { add } = useStorage('students');
@@ -24,9 +25,7 @@ const Add = () => {
     const editKey = randomHash();
     add({ ...data, editKey })
       .then(id => {
-        setEditKey(
-          `${window.location.host}${process.env.PUBLIC_URL}/students/edit/${id}/${editKey}`,
-        );
+        setEditKey(`/students/edit/${id}/${editKey}`);
       })
       .catch(err => {
         setError(err);
@@ -34,7 +33,6 @@ const Add = () => {
   };
   return (
     <Card>
-      {console.log(process.env.PUBLIC_URL)}
       <CardContent>
         <AddForm
           addAccount={addGroup}
@@ -60,9 +58,12 @@ const Add = () => {
               disabled
               style={{ marginTop: '1rem' }}
               label="Link do edycji"
-              defaultValue={editKey}
+              defaultValue={`${window.location.host}${process.env.PUBLIC_URL}${editKey}`}
               fullWidth
             />
+            <Button color="inherit" component={Link} to={{ pathname: editKey }}>
+              Otwórz link edycji (gh pages nie łapie linków z paska)
+            </Button>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
