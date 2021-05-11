@@ -1,4 +1,5 @@
 import accounts from 'config/data/accounts';
+import { useCallback } from 'react';
 
 const dbPrefix = 'piw';
 
@@ -9,23 +10,26 @@ const useStorage = name => {
     window.webkitIndexedDB ||
     window.msIndexedDB;
 
-  const createDb = db => {
-    const objectStore = db.createObjectStore(`${dbPrefix}-${name}`, {
-      keyPath: 'id',
-      autoIncrement: true,
-    });
-    objectStore.transaction.oncomplete = event => {
-      if (!accounts[name]) return;
-      const objectStore = db
-        .transaction(`${dbPrefix}-${name}`, 'readwrite')
-        .objectStore(`${dbPrefix}-${name}`);
-      accounts[name].forEach(account => {
-        objectStore.add(account);
+  const createDb = useCallback(
+    db => {
+      const objectStore = db.createObjectStore(`${dbPrefix}-${name}`, {
+        keyPath: 'id',
+        autoIncrement: true,
       });
-    };
-  };
+      objectStore.transaction.oncomplete = event => {
+        if (!accounts[name]) return;
+        const objectStore = db
+          .transaction(`${dbPrefix}-${name}`, 'readwrite')
+          .objectStore(`${dbPrefix}-${name}`);
+        accounts[name].forEach(account => {
+          objectStore.add(account);
+        });
+      };
+    },
+    [name],
+  );
 
-  const loadAll = () => {
+  const loadAll = useCallback(() => {
     return new Promise((resolve, reject) => {
       if (!storage)
         reject(
@@ -53,105 +57,114 @@ const useStorage = name => {
         };
       };
     });
-  };
+  }, [createDb, name, storage]);
 
-  const loadSingle = id => {
-    return new Promise((resolve, reject) => {
-      if (!storage)
-        reject(
-          Error(
-            'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
-          ),
-        );
-      const request = storage.open(`${dbPrefix}-${name}`, 1);
-      request.onerror = event => {
-        reject(Error('Błąd podczas otwierania indexed DB'));
-      };
-      request.onupgradeneeded = event => {
-        createDb(event.target.rejesult);
-      };
-      request.onsuccess = event => {
-        console.log('test');
-        const singleRequest = event.target.result
-          .transaction([`${dbPrefix}-${name}`], 'readwrite')
-          .objectStore(`${dbPrefix}-${name}`)
-          .get(id);
-        singleRequest.onerror = event => {
-          reject(Error('Obiekt nie istnieje'));
+  const loadSingle = useCallback(
+    id => {
+      return new Promise((resolve, reject) => {
+        if (!storage)
+          reject(
+            Error(
+              'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
+            ),
+          );
+        const request = storage.open(`${dbPrefix}-${name}`, 1);
+        request.onerror = event => {
+          reject(Error('Błąd podczas otwierania indexed DB'));
         };
-        singleRequest.onsuccess = event => {
-          resolve(event.target.result);
+        request.onupgradeneeded = event => {
+          createDb(event.target.rejesult);
         };
-      };
-    });
-  };
+        request.onsuccess = event => {
+          console.log('test');
+          const singleRequest = event.target.result
+            .transaction([`${dbPrefix}-${name}`], 'readwrite')
+            .objectStore(`${dbPrefix}-${name}`)
+            .get(id);
+          singleRequest.onerror = event => {
+            reject(Error('Obiekt nie istnieje'));
+          };
+          singleRequest.onsuccess = event => {
+            resolve(event.target.result);
+          };
+        };
+      });
+    },
+    [createDb, name, storage],
+  );
 
-  const add = data => {
-    return new Promise((resolve, reject) => {
-      if (!storage)
-        reject(
-          Error(
-            'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
-          ),
-        );
-      const request = storage.open(`${dbPrefix}-${name}`, 1);
-      request.onerror = event => {
-        reject(Error('Błąd podczas otwierania indexed DB'));
-      };
-      request.onupgradeneeded = event => {
-        createDb(event.target.rejesult);
-      };
-      request.onsuccess = event => {
-        const addRequest = event.target.result
-          .transaction([`${dbPrefix}-${name}`], 'readwrite')
-          .objectStore(`${dbPrefix}-${name}`)
-          .put(data);
-        addRequest.onerror = event => {
-          reject(Error('Błąd podczas dodawania'));
+  const add = useCallback(
+    data => {
+      return new Promise((resolve, reject) => {
+        if (!storage)
+          reject(
+            Error(
+              'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
+            ),
+          );
+        const request = storage.open(`${dbPrefix}-${name}`, 1);
+        request.onerror = event => {
+          reject(Error('Błąd podczas otwierania indexed DB'));
         };
-        addRequest.onsuccess = event => {
-          resolve(event.target.result);
+        request.onupgradeneeded = event => {
+          createDb(event.target.rejesult);
         };
-      };
-    });
-  };
+        request.onsuccess = event => {
+          const addRequest = event.target.result
+            .transaction([`${dbPrefix}-${name}`], 'readwrite')
+            .objectStore(`${dbPrefix}-${name}`)
+            .put(data);
+          addRequest.onerror = event => {
+            reject(Error('Błąd podczas dodawania'));
+          };
+          addRequest.onsuccess = event => {
+            resolve(event.target.result);
+          };
+        };
+      });
+    },
+    [createDb, name, storage],
+  );
 
-  const update = (data, id) => {
-    return new Promise((resolve, reject) => {
-      if (!storage)
-        reject(
-          Error(
-            'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
-          ),
-        );
-      const request = storage.open(`${dbPrefix}-${name}`, 1);
-      request.onerror = event => {
-        reject(Error('Błąd podczas otwierania indexed DB'));
-      };
-      request.onupgradeneeded = event => {
-        createDb(event.target.rejesult);
-      };
-      request.onsuccess = event => {
-        const objectStore = event.target.result
-          .transaction([`${dbPrefix}-${name}`], 'readwrite')
-          .objectStore(`${dbPrefix}-${name}`);
-        const singleRequest = objectStore.get(id);
-        singleRequest.onerror = () => {
-          reject(Error('Błąd podczas edycji'));
+  const update = useCallback(
+    (data, id) => {
+      return new Promise((resolve, reject) => {
+        if (!storage)
+          reject(
+            Error(
+              'Dla poprawnego działania aplikacji wymagane jest IndexedDB api',
+            ),
+          );
+        const request = storage.open(`${dbPrefix}-${name}`, 1);
+        request.onerror = event => {
+          reject(Error('Błąd podczas otwierania indexed DB'));
         };
-        singleRequest.onsuccess = event => {
-          resolve(event.target.result);
-          const updateRequest = objectStore.put({ ...data, id });
-          updateRequest.onerror = () => {
+        request.onupgradeneeded = event => {
+          createDb(event.target.rejesult);
+        };
+        request.onsuccess = event => {
+          const objectStore = event.target.result
+            .transaction([`${dbPrefix}-${name}`], 'readwrite')
+            .objectStore(`${dbPrefix}-${name}`);
+          const singleRequest = objectStore.get(id);
+          singleRequest.onerror = () => {
             reject(Error('Błąd podczas edycji'));
           };
-          updateRequest.onsuccess = () => {
-            resolve(true);
+          singleRequest.onsuccess = event => {
+            resolve(event.target.result);
+            const updateRequest = objectStore.put({ ...data, id });
+            updateRequest.onerror = () => {
+              reject(Error('Błąd podczas edycji'));
+            };
+            updateRequest.onsuccess = () => {
+              resolve(true);
+            };
           };
         };
-      };
-    });
-  };
+      });
+    },
+    [createDb, name, storage],
+  );
 
   return { loadAll, loadSingle, add, update };
 };

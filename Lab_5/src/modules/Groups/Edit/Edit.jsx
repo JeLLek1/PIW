@@ -39,7 +39,7 @@ const Edit = () => {
       .catch(e => {
         history.replace(`/404`);
       });
-  }, []);
+  }, [history, key, id, loadSingle]);
 
   const updateData = data => {
     setInitialValues(data);

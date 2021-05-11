@@ -62,7 +62,7 @@ export const useTab = storageName => {
       setIsLoading(false);
     };
     load();
-  }, []);
+  }, [loadAll]);
 
   return { dataFiltered, filterOptions, isLoading, changeFilterOptions };
 };

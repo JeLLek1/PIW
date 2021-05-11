@@ -14,7 +14,6 @@ import {
 import { AddForm } from 'components/Forms';
 import useStorage from 'utils/useStorage';
 import randomHash from 'utils/randomHash';
-import { Link } from 'react-router-dom';
 
 const Add = () => {
   const { add } = useStorage('students');
@@ -61,9 +60,6 @@ const Add = () => {
               defaultValue={`${window.location.host}${process.env.PUBLIC_URL}${editKey}`}
               fullWidth
             />
-            <Button color="inherit" component={Link} to={{ pathname: editKey }}>
-              Otwórz link edycji (gh pages nie łapie linków z paska)
-            </Button>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
