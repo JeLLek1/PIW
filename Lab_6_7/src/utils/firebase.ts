@@ -22,3 +22,10 @@ export const firestore = firebase.firestore();
 
 export const getPizzas = () => firestore.collection('pizzas').get();
 export const getIngredients = () => firestore.collection('ingredients').get();
+export const addOrder = (order: IOrder[], user: firebase.User) => {
+  return firestore.collection('orders').add({
+    owner: user.uid,
+    dataCreate: firebase.firestore.FieldValue.serverTimestamp(),
+    order: order,
+  });
+};

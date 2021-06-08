@@ -10,6 +10,12 @@ import {
   Typography,
   Badge,
   Button,
+  CircularProgress,
+  DialogTitle,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
 } from '@material-ui/core';
 import { ReactComponent as LogoSVG } from 'assets/img/pizza.svg';
 import { useLayout } from './utils';
@@ -17,6 +23,7 @@ import { useStyles } from './style';
 import { Link as RouterLink } from 'react-router-dom';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CartItem from 'components/CartItem';
+import Alert from '@material-ui/lab/Alert';
 
 const Layout: React.FunctionComponent = ({ children }) => {
   const {
@@ -28,11 +35,16 @@ const Layout: React.FunctionComponent = ({ children }) => {
     isCartOpen,
     cartAnchorEl,
     cartId,
+    isLoading,
+    error,
+    isSuccess,
     handleMenuOpen,
     handleMenuClose,
     handleLogOut,
     handleCartOpen,
     handleCartClose,
+    handleOrder,
+    handleCloseSuccess,
   } = useLayout();
   const classes = useStyles();
   const renderMenu = (
@@ -45,7 +57,7 @@ const Layout: React.FunctionComponent = ({ children }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profil</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Zamówienia</MenuItem>
       <MenuItem
         onClick={ev => {
           handleMenuClose();
@@ -68,14 +80,25 @@ const Layout: React.FunctionComponent = ({ children }) => {
     >
       {cart.count > 0 ? (
         <>
+          {error && (
+            <Alert severity="error" style={{ margin: '1rem 0' }}>
+              {error}
+            </Alert>
+          )}
           {cart.pizzas.map(el => (
             <CartItem key={el.key} itemData={el} />
           ))}
+
           <div className={classes.spaceCartItem}>
             <Typography className={classes.textSum}>
               Suma: {cart.price.toFixed(2)}zł
             </Typography>
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={isLoading && <CircularProgress size={20} />}
+              onClick={handleOrder}
+            >
               Zamiawiam
             </Button>
           </div>
@@ -127,6 +150,20 @@ const Layout: React.FunctionComponent = ({ children }) => {
         </AppBar>
       </header>
       <main className={classes.main}>{children}</main>
+      <Dialog open={isSuccess} onClose={handleCloseSuccess}>
+        <DialogTitle>Zamówienie zostało złożone</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Możesz przejść do informacji o złożonych zamówieniach klikając na
+            logo swojego profilu, a następnie na "Zamówienia"
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseSuccess} color="primary" autoFocus>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

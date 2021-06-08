@@ -37,3 +37,16 @@ interface IPizzaState {
   price: number;
   pizzas: IPizzaSingleState[];
 }
+
+interface IOrderIngredient {
+  id: string;
+  name: string;
+}
+
+interface IOrder {
+  isCustom: boolean;
+  name: string;
+  customAddOns: IOrderIngredient[];
+  size: 0 | 1 | 2;
+  price: number;
+}
