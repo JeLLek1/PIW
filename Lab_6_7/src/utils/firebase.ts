@@ -21,3 +21,4 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 export const getPizzas = () => firestore.collection('pizzas').get();
+export const getIngredients = () => firestore.collection('ingredients').get();

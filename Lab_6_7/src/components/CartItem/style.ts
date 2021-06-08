@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles(theme => ({
   item: {
     minWidth: '20rem',
-    padding: '0.5rem 3rem 0.5rem 1rem',
+    padding: '0.5rem 4rem 0.5rem 1rem',
     position: 'relative',
     '&::after': {
       content: '""',

@@ -6,11 +6,17 @@ interface IPizza {
   price: number[];
 }
 
+interface IIngredient {
+  name: string;
+  id: string;
+  price: number[];
+}
+
 interface IPizzaSingleState {
   isCustom: boolean;
   id: string | null;
   name: string;
-  customAddOns: string[];
+  customAddOns: IIngredient[];
   size: 0 | 1 | 2;
   price: number;
   key: number;
@@ -20,7 +26,7 @@ interface ICartItem {
   isCustom: boolean;
   id: string | null;
   name: string;
-  customAddOns: string[];
+  customAddOns: IIngredient[];
   size: 0 | 1 | 2;
   price: number;
 }

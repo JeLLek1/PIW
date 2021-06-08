@@ -8,6 +8,13 @@ const CartItem = ({ itemData }: { itemData: IPizzaSingleState }) => {
   return (
     <div className={classes.item}>
       <Typography variant="h6">{itemData.name}</Typography>
+      {itemData.isCustom && (
+        <Typography>
+          {itemData.customAddOns.length
+            ? itemData.customAddOns.map(el => el.name).join(', ')
+            : 'Brak składników'}
+        </Typography>
+      )}
       <Typography>
         {itemData.size === 0
           ? 'Mała'

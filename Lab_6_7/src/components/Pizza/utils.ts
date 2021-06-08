@@ -5,6 +5,14 @@ import { addToCart } from 'store/cart/reducers';
 export const usePizza = (pizza: IPizza) => {
   const dispatch = useDispatch();
   const [size, setSize] = useState<0 | 1 | 2>(0);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleDialogOpen = () => {
+    setIsDialogOpen(true);
+  };
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+  };
   const handeSizeChange = (
     event: React.ChangeEvent<{
       name?: string | undefined;
@@ -27,5 +35,12 @@ export const usePizza = (pizza: IPizza) => {
     );
   };
 
-  return { size, handeSizeChange, handleAddToCart };
+  return {
+    size,
+    isDialogOpen,
+    handeSizeChange,
+    handleAddToCart,
+    handleDialogOpen,
+    handleDialogClose,
+  };
 };

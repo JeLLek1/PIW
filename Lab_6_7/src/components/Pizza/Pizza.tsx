@@ -10,13 +10,22 @@ import {
   Select,
   MenuItem,
   FormControl,
+  Dialog,
 } from '@material-ui/core';
+import OwnPizzaDialog from 'components/OwnPizzaDialog';
 import { useStyles } from './style';
 import { usePizza } from './utils';
 
-const Pizza = (pizza: IPizza) => {
+const Pizza = ({ pizza, isOwn }: { pizza: IPizza; isOwn: boolean }) => {
   const classes = useStyles();
-  const { size, handeSizeChange, handleAddToCart } = usePizza(pizza);
+  const {
+    size,
+    isDialogOpen,
+    handeSizeChange,
+    handleAddToCart,
+    handleDialogOpen,
+    handleDialogClose,
+  } = usePizza(pizza);
   return (
     <Card className={classes.main}>
       <CardActionArea>
@@ -48,14 +57,32 @@ const Pizza = (pizza: IPizza) => {
             <MenuItem value={2}>Duża</MenuItem>
           </Select>
         </FormControl>
-        <Button
-          size="small"
-          color="primary"
-          className={classes.addToCart}
-          onClick={handleAddToCart}
+        {isOwn ? (
+          <Button
+            size="small"
+            color="primary"
+            className={classes.addToCart}
+            onClick={handleDialogOpen}
+          >
+            Skomponuj
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            color="primary"
+            className={classes.addToCart}
+            onClick={handleAddToCart}
+          >
+            Dodaj do koszyka
+          </Button>
+        )}
+        <Dialog
+          open={isDialogOpen}
+          onClose={handleDialogClose}
+          aria-labelledby="responsive-dialog-title"
         >
-          Dodaj do koszyka
-        </Button>
+          <OwnPizzaDialog size={size} handleClose={handleDialogClose} />
+        </Dialog>
       </CardActions>
     </Card>
   );
