@@ -17,7 +17,7 @@ const Register = () => {
       >
         {({ values, handleChange, handleSubmit, errors, touched }) => (
           <form onSubmit={handleSubmit}>
-            <Typography variant="h3">Zaloguj się</Typography>
+            <Typography variant="h3">Zarejestruj się</Typography>
             {error && (
               <Alert severity="error" style={{ margin: '1rem 0' }}>
                 {error}
