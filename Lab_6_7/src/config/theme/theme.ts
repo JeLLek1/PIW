@@ -4,15 +4,15 @@ import * as fonts from './fonts';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#38786a',
-      main: '#004c3f',
-      dark: '#002419',
-      contrastText: '#fff',
+      light: '#255d00',
+      main: '#558b2f',
+      dark: '#85bb5c',
+      contrastText: '#000',
     },
     secondary: {
-      light: '#aab6fe',
-      main: '#7986cb',
-      dark: '#49599a',
+      light: '#ffd95a',
+      main: '#f9a825',
+      dark: '#c17900',
       contrastText: '#000',
     },
   },

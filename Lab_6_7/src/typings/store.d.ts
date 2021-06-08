@@ -1,0 +1,3 @@
+interface IStoreState {
+  login: INotifyState;
+}

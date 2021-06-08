@@ -4,8 +4,10 @@ import theme from 'config/theme';
 import { routes } from 'modules/routes';
 import Error404 from 'modules/Error404';
 import PrivateRoute from 'components/PrivateRoute';
+import { useApp } from './utils';
 
 function App() {
+  useApp();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
