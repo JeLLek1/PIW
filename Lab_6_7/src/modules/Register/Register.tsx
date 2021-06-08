@@ -46,7 +46,7 @@ const Register = () => {
               helperText={touched.password && errors.password}
             />
             <TextField
-              label="Hasło"
+              label="Powtórz hasło"
               type="password"
               fullWidth
               onChange={handleChange}
