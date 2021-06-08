@@ -8,26 +8,36 @@ import {
   Avatar,
   Link,
   Typography,
+  Badge,
+  Button,
 } from '@material-ui/core';
 import { ReactComponent as LogoSVG } from 'assets/img/pizza.svg';
 import { useLayout } from './utils';
 import { useStyles } from './style';
 import { Link as RouterLink } from 'react-router-dom';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import CartItem from 'components/CartItem';
 
 const Layout: React.FunctionComponent = ({ children }) => {
   const {
-    anchorEl,
+    menuAnchorEl,
     menuId,
     isMenuOpen,
     user,
+    cart,
+    isCartOpen,
+    cartAnchorEl,
+    cartId,
     handleMenuOpen,
     handleMenuClose,
     handleLogOut,
+    handleCartOpen,
+    handleCartClose,
   } = useLayout();
   const classes = useStyles();
   const renderMenu = (
     <Menu
-      anchorEl={anchorEl}
+      anchorEl={menuAnchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={menuId}
       keepMounted
@@ -38,12 +48,43 @@ const Layout: React.FunctionComponent = ({ children }) => {
       <MenuItem onClick={handleMenuClose}>Profil</MenuItem>
       <MenuItem
         onClick={ev => {
-          handleMenuClose(ev);
+          handleMenuClose();
           handleLogOut();
         }}
       >
         Wyloguj
       </MenuItem>
+    </Menu>
+  );
+  const renderCart = (
+    <Menu
+      anchorEl={cartAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={cartId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isCartOpen}
+      onClose={handleCartClose}
+    >
+      {cart.count > 0 ? (
+        <>
+          {cart.pizzas.map(el => (
+            <CartItem key={el.key} itemData={el} />
+          ))}
+          <div className={classes.spaceCartItem}>
+            <Typography className={classes.textSum}>
+              Suma: {cart.price.toFixed(2)}zł
+            </Typography>
+            <Button variant="contained" color="secondary">
+              Zamiawiam
+            </Button>
+          </div>
+        </>
+      ) : (
+        <Typography className={classes.spaceCartItem}>
+          Koszyk jest pusty :c
+        </Typography>
+      )}
     </Menu>
   );
   return (
@@ -61,6 +102,14 @@ const Layout: React.FunctionComponent = ({ children }) => {
                 Student Pizza
               </Typography>
             </Link>
+            <div>
+              <IconButton aria-label="Koszyk" onClick={handleCartOpen}>
+                <Badge badgeContent={cart.count} color="secondary">
+                  <ShoppingCartIcon htmlColor="#ffffff" />
+                </Badge>
+              </IconButton>
+              {renderCart}
+            </div>
             <div>
               <IconButton
                 aria-controls="menu-appbar"

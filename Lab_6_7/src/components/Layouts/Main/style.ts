@@ -22,4 +22,12 @@ export const useStyles = makeStyles(theme => ({
   main: {
     paddingTop: '7rem',
   },
+  spaceCartItem: {
+    padding: '1rem',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  textSum: {
+    padding: '0.5rem 0',
+  },
 }));

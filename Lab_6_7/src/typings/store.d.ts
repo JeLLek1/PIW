@@ -1,3 +1,4 @@
 interface IStoreState {
-  login: INotifyState;
+  login: ILoginState;
+  cart: IPizzaState;
 }

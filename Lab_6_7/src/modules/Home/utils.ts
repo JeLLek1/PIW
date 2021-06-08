@@ -3,6 +3,7 @@ import { getPizzas } from 'utils/firebase';
 
 export const useHome = () => {
   const [pizzas, setPizzas] = useState<IPizza[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     getPizzas()
       .then(querySnapshot => {
@@ -18,11 +19,12 @@ export const useHome = () => {
           });
         });
         setPizzas(newPizzas);
+        setIsLoading(false);
       })
       .catch(e => {
         console.log(e);
       });
   }, []);
 
-  return { pizzas };
+  return { pizzas, isLoading };
 };
