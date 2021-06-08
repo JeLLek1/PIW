@@ -1,6 +1,7 @@
 import Login from './Login';
 import Register from './Register';
 import Home from './Home';
+import Orders from './Orders';
 
 export const routes: IRoute[] = [
   {
@@ -16,6 +17,11 @@ export const routes: IRoute[] = [
   {
     route: '/',
     module: Home,
+    accessType: 'logged',
+  },
+  {
+    route: '/orders',
+    module: Orders,
     accessType: 'logged',
   },
 ];

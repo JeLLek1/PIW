@@ -29,3 +29,5 @@ export const addOrder = (order: IOrder[], user: firebase.User) => {
     order: order,
   });
 };
+export const getOrders = (user: firebase.User) =>
+  firestore.collection('orders').where('owner', '==', user.uid).get();

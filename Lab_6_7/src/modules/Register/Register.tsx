@@ -68,12 +68,12 @@ const Register = () => {
             >
               Zarejestruj się
             </Button>
-            <Link component={RouterLink} to="/login">
-              Zaloguj się
-            </Link>
           </form>
         )}
       </Formik>
+      <Link component={RouterLink} to="/login">
+        Zaloguj się
+      </Link>
     </Layout>
   );
 };

@@ -5,7 +5,6 @@ import { auth } from 'utils/firebase';
 export const validationSchema = () =>
   object().shape({
     email: string().required('Uzupełnij to pole').email('Nieprawidłowy email'),
-    displayName: string().required('Uzupełnij to pole'),
     password: string()
       .required('Uzupełnij to pole')
       .min(6, 'Hasło powinno mieć minimum 6 znaków'),

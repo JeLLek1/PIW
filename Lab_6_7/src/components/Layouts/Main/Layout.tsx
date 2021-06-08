@@ -57,9 +57,19 @@ const Layout: React.FunctionComponent = ({ children }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Zamówienia</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link
+          component={RouterLink}
+          to="/orders"
+          className={classes.logoWrapper}
+          color="inherit"
+          style={{ textDecoration: 'none' }}
+        >
+          Zamówienia
+        </Link>
+      </MenuItem>
       <MenuItem
-        onClick={ev => {
+        onClick={_ => {
           handleMenuClose();
           handleLogOut();
         }}

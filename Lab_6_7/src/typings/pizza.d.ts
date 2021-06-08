@@ -50,3 +50,13 @@ interface IOrder {
   size: 0 | 1 | 2;
   price: number;
 }
+interface IFirestoreData {
+  nanoseconds: number;
+  seconds: number;
+}
+
+interface IOrderFirebase {
+  owner: string;
+  dataCreate: IFirestoreData;
+  order: IOrder[];
+}
