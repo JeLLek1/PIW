@@ -7,6 +7,7 @@ import {
   IconButton,
   Avatar,
   Link,
+  Typography,
 } from '@material-ui/core';
 import { ReactComponent as LogoSVG } from 'assets/img/pizza.svg';
 import { useLayout } from './utils';
@@ -50,8 +51,15 @@ const Layout: React.FunctionComponent = ({ children }) => {
       <header>
         <AppBar position="fixed">
           <Toolbar>
-            <Link component={RouterLink} to="/">
-              <LogoSVG />
+            <Link component={RouterLink} to="/" className={classes.logoWrapper}>
+              <LogoSVG className={classes.logo} />
+              <Typography
+                variant="h3"
+                color="secondary"
+                className={classes.logoTitle}
+              >
+                Student Pizza
+              </Typography>
             </Link>
             <div>
               <IconButton
@@ -69,7 +77,7 @@ const Layout: React.FunctionComponent = ({ children }) => {
           </Toolbar>
         </AppBar>
       </header>
-      <main>{children}</main>
+      <main className={classes.main}>{children}</main>
     </>
   );
 };
